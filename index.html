@@ -124,46 +124,12 @@
         <div class="start-note">♫ Last Christmas</div>
     </div>
     <div id="lyrics-container"><span id="lyrics-text">...</span></div>
-
-        <div id="webcam-wrapper">
-    <!-- Nút bật camera -->
-    <button id="start-camera" class="start-btn">Bật camera</button>
-
-    <div id="cam-stats">SCAN | AI-LITE</div>
-    <canvas id="webcam-canvas"></canvas>
-</div>
-
+    
+    <div id="webcam-wrapper">
         <div id="cam-stats">SCAN | AI-LITE</div>
         <canvas id="webcam-canvas"></canvas>
     </div>
-  <!-- Video và nhạc nền -->
-    <video id="input_video" style="display:none; transform: scaleX(-1)" playsinline></video>
-    <audio id="bg-music" src="./audio.mp3" loop></audio>
-    <button onclick="document.getElementById('bg-music').play()">Bật nhạc</button>
 
-    <!-- Script bật camera -->
-    <script>
-        const videoCanvas = document.getElementById('webcam-canvas');
-        const startBtn = document.getElementById('start-camera');
-
-        startBtn.addEventListener('click', () => {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    const ctx = videoCanvas.getContext('2d');
-                    const video = document.createElement('video');
-                    video.srcObject = stream;
-                    video.play();
-
-                    function draw() {
-                        ctx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
-                        requestAnimationFrame(draw);
-                    }
-                    draw();
-                })
-                .catch(err => console.error("Không thể truy cập camera:", err));
-        });
-    </script>
-</body>
     <video id="input_video" style="display:none; transform: scaleX(-1)" playsinline></video>
     <audio id="bg-music" src="./audio.mp3" loop></audio>
 
@@ -177,7 +143,7 @@
 
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 800;
         
-       const ENABLE_POST_PROCESSING = !(isMobile || window.innerWidth < 1024);
+       const ENABLE_POST_PROCESSING = false;
 
         
         const TOTAL_PHOTOS = isMobile ? 8 : 12; 
@@ -736,7 +702,9 @@ renderer.domElement.style.height = h + 'px';
             if (composer && ENABLE_POST_PROCESSING) composer.render();
             else renderer.render(scene, camera);
         }
+        
         init();
+        
     </script>
 </body>
 </html>
